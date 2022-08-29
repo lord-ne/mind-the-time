@@ -176,7 +176,7 @@ async function pre_clock_on_2_internal(aUrl) {
             handle_incognito_tab(tab);
 
         } else if (is_clockable_protocol(url.protocol) &&
-            !fromStorage.oWhitelistArray.includes(domain)) {
+            !fromStorage.oWhitelistArray.includes(domain) && is_my_website(url)) {
 
             let seconds = fromStorage[domain] || 0;
             update_ticker(seconds, fromStorage.totalSecs);
@@ -187,6 +187,11 @@ async function pre_clock_on_2_internal(aUrl) {
             update_ticker(0, fromStorage.totalSecs);
         }
     } catch (e) { console.error(e); }
+};
+
+// Piazza/ed
+function is_my_website(url) {
+	return (url.hostname === "edstem.org") && url.pathname.includes("25287")
 };
 
 
